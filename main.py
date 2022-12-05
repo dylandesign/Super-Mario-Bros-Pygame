@@ -56,6 +56,11 @@ clock = pygame.time.Clock()
 
 # Parameters of Font Location and Font Size
 test_font = pygame.font.Font('Font/NES.otf', 50)
+bg_music = pygame.mixer.Sound('Audio/overworld_theme.ogg')
+bg_music.play(loops = -1)
+
+jump_sound = pygame.mixer.Sound('Audio/small_jump.ogg')
+jump_sound.set_volume(0.5)
 
 # Drawing Sky on Canvas
 sky_surface = pygame.image.load('Graphics/background.png').convert()
@@ -108,6 +113,7 @@ while True:
         if event.type == pygame.KEYDOWN and player_rect.bottom == ground_rect.top:
             if event.key == pygame.K_SPACE:
                 player_gravity = -20
+                jump_sound.play()
         #if event.type == pygame.KEYDOWN:
         #    if event.key == pygame.K_LEFT:
         #        player_rect.x -= 1
