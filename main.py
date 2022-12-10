@@ -1,22 +1,10 @@
 import pygame
 from sys import exit
-
+from settings import *
 from player import Player
 
 pygame.init()
 
-# Native Original NES Resolution for context
-nes_wResolution = 256
-nes_hResolution = 240
-
-# Wide Screen Super Mario Bros. current implementation.
-wScreen = 1280
-# hScreen will always be a multiple of the native nes_hResolution for consistency
-hScreen = nes_hResolution*3
-
-sprite_size = hScreen/15
-wGrid = wScreen/sprite_size
-hGrid = hScreen/sprite_size
 # Canvas to draw on passing in as parameters of screen resolution
 screen = pygame.display.set_mode((wScreen, hScreen))
 # Sets Window Caption
@@ -66,12 +54,12 @@ while True:
             wGround += sprite_size
         wGround = 0
         hGround = hScreen - sprite_size
-    player1.player_movement(ground_rect, jump_sound)
 
+    player1.player_movement(ground_rect, jump_sound)
     player1.player_jump_gravity(ground_rect)
     player1.player_animation(ground_rect, sprite_size)
-    screen.blit(player1.player_surf, player1.player_rect)
 
+    screen.blit(player1.player_surf, player1.player_rect)
     screen.blit(text_surface, text_rect)
 
     pygame.display.update()

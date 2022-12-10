@@ -74,5 +74,6 @@ class Player:
     def player_jump_gravity(self, ground_rect):
         self.player_gravity += 1
         self.player_rect.y += self.player_gravity
+        # Check that Player is above ground and adjusts accordingly
         if self.player_rect.bottom >= ground_rect.top:
             self.player_rect.bottom = ground_rect.top
