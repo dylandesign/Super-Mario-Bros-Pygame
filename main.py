@@ -40,12 +40,6 @@ ground_surface = pygame.image.load('Graphics/groundBlock.png').convert()
 ground_surface = pygame.transform.scale(ground_surface, (sprite_size, sprite_size))
 # TODO not used, need to figure out how to implement rect in for loop for ground without making code messier
 ground_rect = ground_surface.get_rect(topleft=(0, hScreen - (sprite_size*2)))
-# Goomba
-goomba_surface = pygame.image.load('Graphics/Enemy/Goomba.png').convert_alpha()
-goomba_surface = pygame.transform.scale(goomba_surface, (sprite_size, sprite_size))
-goomba_rect = goomba_surface.get_rect(bottomleft=(288, 624))
-goomba_speed = -2
-goomba_collision = True
 # TODO Drawing Font to Screen
 text_surface = test_font.render('Super Mario Bros.', False, 'Black')
 text_rect = text_surface.get_rect(center=(wScreen/2, hScreen/3))
@@ -57,13 +51,6 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        if event.type == pygame.MOUSEBUTTONDOWN and player1.player_rect.bottom == ground_rect.top:
-            if player1.player_rect.collidepoint(event.pos):
-                player1.player_gravity = -20
-        if event.type == pygame.KEYDOWN and player1.player_rect.bottom == ground_rect.top:
-            if event.key == pygame.K_SPACE:
-                player1.player_gravity = -20
-                jump_sound.play()
 
     screen.blit(sky_surface, (0, 0))
     # wGround starts at 0
@@ -79,20 +66,7 @@ while True:
             wGround += sprite_size
         wGround = 0
         hGround = hScreen - sprite_size
-    player1.player_movement()
-    # Goomba MOVES!!!!
-    goomba_rect.x += goomba_speed
-
-    # Goomba position reset
-    if goomba_rect.right <= 0:
-        goomba_rect.left = wScreen
-
-    # TODO figure out what the heck this is lol
-    if player1.player_rect.colliderect(goomba_rect):
-        if goomba_collision:
-            goomba_speed *= -1
-            print(goomba_speed)
-            goomba_collision = False
+    player1.player_movement(ground_rect, jump_sound)
 
     player1.player_jump_gravity(ground_rect)
     player1.player_animation(ground_rect, sprite_size)
